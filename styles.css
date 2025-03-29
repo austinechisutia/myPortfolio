@@ -134,6 +134,7 @@
         min-height: 100vh; /* Ensures full screen height but allows scrolling */
         margin: 0;
         padding: 0;
+        overflow-x: hidden;
     }
    
     
@@ -148,16 +149,14 @@
         position: absolute;
         width: 100vw;
         height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
         pointer-events: none;
-        z-index: 0; /* Keeps it below content */
-    
-        /* Gradient Mask to Fade Bottom */
+        z-index: 0;
         mask-image: linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.1));
         -webkit-mask-image: linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.1));
     }
@@ -170,12 +169,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
-    
-        /* Soft Glow Effect */
         box-shadow: 0 0 105px var(--main-color), 0 0 50px var(--outline);
     }
     
-    /* Different circle sizes */
+    /* Circle sizes */
     .circle-1 { width: 1200px; height: 1200px; }
     .circle-2 { width: 1000px; height: 1000px; }
     .circle-3 { width: 800px; height: 800px; }
@@ -186,43 +183,32 @@
         position: absolute;
         width: 15px;
         height: 15px;
-        background-color: #00ff00; /* Bright Green */
+        background-color: #00ff00; /* Green color */
         clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
     }
     
-    /* Position stars around the circles */
+    /* Position stars exactly on the edge of each circle */
     .circle .star {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform-origin: center; /* Ensures rotation is centered */
+        top: 30%;
+        left: 70%;
+        transform-origin: center;
     }
     
-    /* Orbit Animation */
+    /* Animation for orbiting effect */
     @keyframes orbit {
         0% { transform: rotate(0deg) translateX(50%) rotate(0deg); }
         100% { transform: rotate(360deg) translateX(50%) rotate(-360deg); }
     }
     
-    /* Rolling Effect for Stars */
-    @keyframes roll {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
+    /* Apply animation with different speeds */
+    .circle-1 .star { animation: orbit 10s linear infinite; }
+    .circle-2 .star { animation: orbit 8s linear infinite; }
+    .circle-3 .star { animation: orbit 6s linear infinite; }
+    .circle-4 .star { animation: orbit 4s linear infinite; }
+    .circle-4 .star { animation: orbit 4s linear infinite; }
+    .circle-4 .star { animation: orbit 4s linear infinite; }
+
     
-    /* Apply Animations */
-    .circle-1 .star {
-        animation: orbit 10s linear infinite, roll 2s linear infinite;
-    }
-    .circle-2 .star {
-        animation: orbit 8s linear infinite, roll 2s linear infinite;
-    }
-    .circle-3 .star {
-        animation: orbit 6s linear infinite, roll 2s linear infinite;
-    }
-    .circle-4 .star {
-        animation: orbit 4s linear infinite, roll 2s linear infinite;
-    }
     
     
     
@@ -230,24 +216,23 @@
     position: sticky;
     display: inline-flex;
     width: max-content;
-    gap: 30px;
     color: var(--icons-color);
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    gap: 10px;
     border: 1px solid var(--outline);
     border-radius: 30px;
-    padding: 10px 20px;
+    padding: 5px 10px;
     background-color: var(--main-color);
-    margin-top: 30px;
     z-index: 1;
   }
   .bx{
     color: var(--icons-color);
-    font-size: 20px;
+    font-size: 15px;
     cursor: pointer;
     background-color: var(--background);
     border-radius: 20px;
-    padding: 10px;
+    padding: 5px;
 
   }
   .active .bx{
@@ -265,7 +250,8 @@
     border: 1px solid var(--outline);
     padding: 5px 10px !important;
     position: absolute !important;
-    font-size: 12px;
+    font-size: 10px;
+    z-index: 1000 !important; /* Ensure it appears above other elements */
 }
 
 /* Tooltip Arrow (Fix arrow direction) */
@@ -283,7 +269,7 @@
 }
 
 .content .image img{
-    width: 300px;
+    width: 200px;
 }
 
 .image {
@@ -298,13 +284,13 @@
 .details{
     position: absolute;
     display: flex;
-    top: 15rem;
+    top: 10rem;
     background-color: var(--main-color);
     color: var(--font-color);
     border: 1px solid var(--outline);
     padding: 5px;
-    font-size: 15px;
-    width: 250px;
+    font-size: 13px;
+    width: 200px;
     align-items: center;
     justify-content: center;
 }
@@ -334,7 +320,7 @@
     }
 }
 
-.description {
+.description{
     color: var(--font-color);
     font-size: clamp(20px, 5vw, 50px); /* Responsive text */
     display: flex;
@@ -352,7 +338,42 @@
     color: var(--outline2);
     text-align: center;
     max-width: 80%;
+    width: 900px;
 }
+
+.user{
+    line-height: 3rem;
+
+}
+
+/* Star Container */
+.stars-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: -1; /* Keeps stars in the background */
+  pointer-events: none; /* Prevents interaction */
+}
+
+/* Individual Stars */
+.star {
+  position: absolute;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Subtle glow */
+  animation: twinkle infinite alternate;
+}
+
+/* Twinkle Animation */
+@keyframes twinkle {
+  0% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0.5; transform: scale(0.9); }
+}
+
+
 
 
 
