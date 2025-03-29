@@ -212,20 +212,32 @@
     
     
     
-  .navigation{
-    position: sticky;
-    display: inline-flex;
+ 
+  .navigation {
+    position: fixed; /* Keeps it in place while scrolling */
+    top: 10px; /* Adjust position from the top */
+    left: 50%; /* Centers it */
+    transform: translateX(-50%); /* Ensures proper centering */
     width: max-content;
-    color: var(--icons-color);
+    display: flex;
+    gap: 30px;
     align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    border: 1px solid var(--outline);
+    justify-content: center;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.2); /* Semi-transparent */
+    backdrop-filter: blur(10px); /* Blur effect for elements behind */
+    -webkit-backdrop-filter: blur(10px); /* For Safari */
     border-radius: 30px;
-    padding: 5px 10px;
-    background-color: var(--main-color);
-    z-index: 1;
-  }
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Light border for visibility */
+    z-index: 1000; /* Ensures it stays on top */
+    transition: background 0.3s ease-in-out;
+}
+
+/* Hover effect for better UI feedback */
+.navigation:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
   .bx{
     color: var(--icons-color);
     font-size: 15px;
@@ -337,14 +349,15 @@
     font-size: 15px;
     color: var(--outline2);
     text-align: center;
-    max-width: 80%;
-    width: 900px;
+    max-width: 70%;
 }
 
 .user{
     line-height: 3rem;
 
 }
+
+
 
 /* Star Container */
 .stars-container {
@@ -358,22 +371,32 @@
   pointer-events: none; /* Prevents interaction */
 }
 
-/* Individual Stars */
+/* Stars */
 .star {
   position: absolute;
   border-radius: 50%;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Subtle glow */
-  animation: twinkle infinite alternate;
+  background-color: #ffffff;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+  animation: twinkle 3s infinite alternate, rotateAround 20s linear infinite;
 }
 
 /* Twinkle Animation */
 @keyframes twinkle {
-  0% { opacity: 0.3; transform: scale(0.8); }
-  50% { opacity: 1; transform: scale(1); }
-  100% { opacity: 0.5; transform: scale(0.9); }
+  0% { opacity: 0.3; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.1); }
+  100% { opacity: 0.6; transform: scale(1); }
+}
+
+/* Rotation Around Screen */
+@keyframes rotateAround {
+  0% { transform: rotate(0deg) translateX(100px) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(100px) rotate(-360deg); }
 }
 
 
+.projects{
+  color: #fff;
+}
 
 
 
