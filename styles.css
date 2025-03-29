@@ -41,6 +41,7 @@
     font-family: "Poppins", sans-serif;
     font-weight: 700;
     font-style: normal;
+    
   }
   
   .poppins-extrabold {
@@ -115,6 +116,7 @@
     --font-color: #fff;
     --icons-color: #c5c3c3;
     --outline: #4b4b4b;
+    --outline2: #8a8a8a;
   }
     *{
         margin: 0;
@@ -122,13 +124,110 @@
         box-sizing: border-box;
         font-family: 'Poppins', sans-serif;
     }
-  body{
-    background-color: var(--background)!important;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-  }
+    body {
+        position: relative;
+        background-color: var(--background) !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh; /* Ensures full screen height but allows scrolling */
+        margin: 0;
+        padding: 0;
+    }
+   
+    
+    :root {
+        --background: #131e22;
+        --circle-border: rgba(255, 255, 255, 0.2);
+        --star-color: gold;
+    }
+    
+    /* Container for all circles */
+    .circle-container {
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        z-index: 0; /* Keeps it below content */
+    
+        /* Gradient Mask to Fade Bottom */
+        mask-image: linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.1));
+        -webkit-mask-image: linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.1));
+    }
+    
+    /* Circles */
+    .circle {
+        position: absolute;
+        border-radius: 50%;
+        border: 1px solid var(--circle-border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    
+        /* Soft Glow Effect */
+        box-shadow: 0 0 105px var(--main-color), 0 0 50px var(--outline);
+    }
+    
+    /* Different circle sizes */
+    .circle-1 { width: 1200px; height: 1200px; }
+    .circle-2 { width: 1000px; height: 1000px; }
+    .circle-3 { width: 800px; height: 800px; }
+    .circle-4 { width: 600px; height: 600px; }
+    
+    /* Stars */
+    .star {
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        background-color: #00ff00; /* Bright Green */
+        clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    }
+    
+    /* Position stars around the circles */
+    .circle .star {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center; /* Ensures rotation is centered */
+    }
+    
+    /* Orbit Animation */
+    @keyframes orbit {
+        0% { transform: rotate(0deg) translateX(50%) rotate(0deg); }
+        100% { transform: rotate(360deg) translateX(50%) rotate(-360deg); }
+    }
+    
+    /* Rolling Effect for Stars */
+    @keyframes roll {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    /* Apply Animations */
+    .circle-1 .star {
+        animation: orbit 10s linear infinite, roll 2s linear infinite;
+    }
+    .circle-2 .star {
+        animation: orbit 8s linear infinite, roll 2s linear infinite;
+    }
+    .circle-3 .star {
+        animation: orbit 6s linear infinite, roll 2s linear infinite;
+    }
+    .circle-4 .star {
+        animation: orbit 4s linear infinite, roll 2s linear infinite;
+    }
+    
+    
+    
   .navigation{
+    position: sticky;
     display: inline-flex;
     width: max-content;
     gap: 30px;
@@ -139,6 +238,8 @@
     border-radius: 30px;
     padding: 10px 20px;
     background-color: var(--main-color);
+    margin-top: 30px;
+    z-index: 1;
   }
   .bx{
     color: var(--icons-color);
@@ -154,3 +255,108 @@
     color: var(--main-color);
     transition: all 0.3s ease-in-out;
   }
+
+  /* Tooltip Background and Text */
+/* Tooltip Background and Text */
+.uk-tooltip {
+    background-color: var(--background) !important; /* Custom dark background */
+    color: #fff !important; /* White text */
+    border-radius: 8px !important;
+    border: 1px solid var(--outline);
+    padding: 5px 10px !important;
+    position: absolute !important;
+    font-size: 12px;
+}
+
+/* Tooltip Arrow (Fix arrow direction) */
+.uk-tooltip::before {
+    border-color: transparent transparent var(--main-color) transparent !important; /* Points to the element */
+}
+.content{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.content .image img{
+    width: 300px;
+}
+
+.image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.details{
+    position: absolute;
+    display: flex;
+    top: 15rem;
+    background-color: var(--main-color);
+    color: var(--font-color);
+    border: 1px solid var(--outline);
+    padding: 5px;
+    font-size: 15px;
+    width: 250px;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.online-light {
+    width: 10px;
+    height: 10px;
+    background-color: #00ff00; /* Green color */
+    border-radius: 50%; /* Make it a circle */
+    margin-right: 10px; /* Space between light and text */
+    box-shadow: 0 0 5px #00ff00; /* Glow effect */
+    
+    /* Blinking animation */
+    animation: blink 1s infinite alternate;
+}
+
+/* Blinking Animation */
+@keyframes blink {
+    0% {
+        opacity: 1;
+        box-shadow: 0 0 8px #00ff00;
+    }
+    100% {
+        opacity: 0.5;
+        box-shadow: 0 0 2px #00ff00;
+    }
+}
+
+.description {
+    color: var(--font-color);
+    font-size: clamp(20px, 5vw, 50px); /* Responsive text */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    max-width: 80%; /* Prevents it from being too wide */
+}
+.my-details{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 15px;
+    color: var(--outline2);
+    text-align: center;
+    max-width: 80%;
+}
+
+
+
+
+
+
+
