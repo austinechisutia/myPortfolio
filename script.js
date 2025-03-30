@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const numStars = 120; // Number of stars
+    const numStars = 20; // Number of stars
     const container = document.createElement("div");
     container.classList.add("stars-container");
     document.body.appendChild(container);

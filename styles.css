@@ -328,7 +328,7 @@
     }
     100% {
         opacity: 0.5;
-        box-shadow: 0 0 2px #00ff00;
+        box-shadow: 0 0 1px #00ff00;
     }
 }
 
@@ -389,7 +389,7 @@
 
 /* Rotation Around Screen */
 @keyframes rotateAround {
-  0% { transform: rotate(0deg) translateX(100px) rotate(0deg); }
+  0% { transform: rotate(0deg) translateX(1000px) rotate(0deg); }
   100% { transform: rotate(360deg) translateX(100px) rotate(-360deg); }
 }
 
